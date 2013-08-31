@@ -13,7 +13,7 @@ module SODA
       @config = config.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
     end
 
-    def check_response(response, extension)
+    def check_response(uri, response, extension)
       if response.code != "200"
         raise "Error querying \"#{uri.to_s}\": #{response.body}"
       else
@@ -67,7 +67,7 @@ module SODA
       authenticate(request)
       
       response = http.request(request)
-      response = check_response(response, ".json")
+      response = check_response(uri, response, ".json")
     end
 
     def delete(resource, params = {})
@@ -82,7 +82,7 @@ module SODA
       authenticate(request)
       
       response = http.request(request)
-      response = check_response(response, ".json")
+      response = check_response(uri, response, ".json")
     end
 
     def post(resource, body = "", params = {})
@@ -98,7 +98,7 @@ module SODA
       authenticate(request)
       
       response = http.request(request)
-      response = check_response(response, ".json")
+      response = check_response(uri, response, ".json")
     end
 
     def put(resource, body = "", params = {})
@@ -114,7 +114,7 @@ module SODA
       authenticate(request)
       
       response = http.request(request)
-      response = check_response(response, ".json")
+      response = check_response(uri, response, ".json")
     end
 
     private
